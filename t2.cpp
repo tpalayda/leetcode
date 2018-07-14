@@ -28,5 +28,5 @@ int main()
     insert(l1,3);
     insert(l1,4);
     insert(l1,2);
-    printLinkedList(root);
+    printLinkedList(l1);
 }
