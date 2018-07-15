@@ -33,29 +33,25 @@ void printLinkedList(const ListNode* root)
 }
 ListNode* addTwoNumbers(const ListNode* l1,const ListNode* l2)
 {
-    unsigned long long exp = 1;
-    unsigned long long num1 = 0, num2 = 0;
-    while(l1)
-    {
-        num1 += l1->val*exp;
-        exp *= 10;
-        l1 = l1->next;
-    }
-    exp = 1;
-    while(l2)
-    {
-        num2 += l2->val*exp;
-        exp *= 10;
-        l2 = l2->next;
-    }
-    unsigned long long sum = num1 + num2;
-    while(exp <= sum)
-        exp *= 10;
-    std::cout << "exp:" << exp << std::endl;
-
     ListNode* l3 = nullptr;
-    for(unsigned long long i = exp/10; i; i /= 10)
-        insert(l3,sum/i%10); 
+    ListNode** cur = &l3;
+    unsigned remainder = 0;
+    while(l1 || l2)
+    {
+        unsigned val1 = l1 ? l1->val : 0;
+        unsigned val2 = l2 ? l2->val : 0;
+        unsigned sum = remainder + val1 + val2;
+        remainder = sum/10;
+        *cur = new ListNode(sum % 10);
+        cur = &(*cur)->next;
+
+        if(l1)
+            l1 = l1->next;
+        if(l2)
+            l2 = l2->next;
+    }
+    if(remainder > 0)
+        *cur = new ListNode(remainder);
     return l3;
 }
 int main()
@@ -63,15 +59,7 @@ int main()
     ListNode* l1 = nullptr;
     ListNode* l2 = nullptr;
     insert(l1,9);
-    insert(l2,9);
-    insert(l2,9);
-    insert(l2,9);
-    insert(l2,9);
-    insert(l2,9);
-    insert(l2,9);
-    insert(l2,9);
-    insert(l2,9);
-    insert(l2,9);
+    insert(l1,9);
     insert(l2,1);
     printLinkedList(l1);
     printLinkedList(l2);
