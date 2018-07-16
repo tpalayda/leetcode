@@ -12,26 +12,24 @@ void printMap(const std::unordered_map<T,T1>& m)
 }
 size_t lengthOfLongestSubstring(const std::string& s)
 {
-    std::unordered_map<char,size_t> occurrences;
+    std::unordered_map<char,size_t> occurrences; //character/index
     occurrences.reserve(s.size()-1);
-    size_t size = 0, curr = 0;
+    
+    size_t size = 0, i = 0, j = 0;
+
     for(const char& character : s)
     {
         if(occurrences.count(character))
-        {
-            size = size < curr ? curr : size;
-            occurrences.clear();
-            curr = 0;
-        }
-        ++occurrences[character];
-        ++curr;
-        printMap(occurrences);
+            i = std::max(occurrences[character],i);
+
+        size = std::max(size,j - i + 1);
+        occurrences[character] = ++j;
+        std::cout << i << "," << j << "," << character <<  std::endl;
     }
-    size = size < curr ? curr : size; //when no copies
     return size;
 }
 
 int main()
 {
-    std::cout << lengthOfLongestSubstring("dvdf") << std::endl;
+    std::cout << lengthOfLongestSubstring("abcdvdi") << std::endl;
 }
