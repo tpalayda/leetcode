@@ -21,8 +21,6 @@ int myAtoi(const std::string& str)
             isNegative = !isNegative;
             continue;
         }
-        else
-            break;
         if(isNumeric(*it))
             if(!isNegative && result > max_val)
                 return max_val*10+7;
@@ -30,12 +28,14 @@ int myAtoi(const std::string& str)
                 return min_val*10-8;
             else
                 result = result*10 + *it - 48;
+        else if(*it == '.')
+            return result;
     }
     result = isNegative ? result*-1 : result;
     return result;
 }
 int main()
 {
-    std::string a = "123-------";
+    std::string a = "3.14159;";
     std::cout << myAtoi(a) << std::endl;
 }
