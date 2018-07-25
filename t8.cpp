@@ -8,7 +8,9 @@ constexpr bool isNumeric(const char& c)
 }
 int myAtoi(const std::string& str)
 {
-    if(!isNumeric(str[0]) && str[0] != '-' && str[0] != ' ')
+    if(!isNumeric(str[0]) && str[0] != '-' && str[0] != ' ' && str[0] != '+')
+        return 0;
+    if(str.size() > 1 && !isNumeric(str[1]) && str[1] != ' ' && str[1] != '.')
         return 0;
     int result = 0;
     int min_val = std::numeric_limits<int>::min()/10;
@@ -36,6 +38,6 @@ int myAtoi(const std::string& str)
 }
 int main()
 {
-    std::string a = "3.14159;";
+    std::string a = "1";
     std::cout << myAtoi(a) << std::endl;
 }
