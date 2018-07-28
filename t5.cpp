@@ -10,28 +10,32 @@ bool isPalindrome(const std::string& s)
 }
 std::string longestPalindrome(const std::string& s)
 {
-    if(isPalindrome(s))
+    const size_t n = s.size();
+    if(isPalindrome(s) || n < 2)
         return s;
-    std::unordered_set<char> set;
+    std::vector<std::string> v;
     std::string result;
-    std::string temp_result;
-    for(auto it = s.begin(); it != s.end(); ++it)
+    v.reserve(n-1);
+    for(unsigned i = 0; i < n; ++i)
     {
-        if(set.count(*it) && (*it != *(it+1) || isPalindrome(temp_result+*(it+1))))
+        result += s[i];
+        if(isPalindrome(result))
+            v.emplace_back(result);
+        else
         {
-            temp_result += *it; 
-            if(isPalindrome(temp_result) && temp_result.size() > result.size())
-                result = std::move(temp_result);
-            set.clear();
+            result.clear();
+            result = s[i];
         }
-        set.emplace(*it);
-        temp_result += *it;
     }
+    result.clear();
+    for(const auto& str : v)
+        if(str.size() > result.size())
+            result = std::move(str); 
     return result;
 }
 
 int main()
 {
-    std::cout << longestPalindrome("ababad") << std::endl;
+    std::cout << longestPalindrome("babad") << std::endl;
     //std::cout << isPalindrome("aaaaa") << std::endl;
 }
