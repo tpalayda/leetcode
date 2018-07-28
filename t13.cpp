@@ -6,26 +6,32 @@ int romanToInt(const std::string& s)
     int result {};
     for(auto it = s.begin(); it != s.end(); ++it)
     {
-        if(*it == 'I' && (*(it+1) == 'X' || *(it+1) == 'V'))
-            result -= 1;
-        else if(*it == 'I')
-            result += 1;
-        else if(*it == 'V')
-            result += 5;
-        else if(*it == 'X' && (*(it+1) == 'L' || *(it+1) == 'C'))
-            result -= 10;
-        else if(*it == 'X')
-            result += 10;
-        else if(*it == 'L')
-            result += 50;
-        else if(*it == 'C' && (*(it+1) == 'D' || *(it+1) == 'M'))
-            result -= 100;
-        else if(*it == 'C')
-            result += 100;
-        else if(*it == 'D')
-            result += 500;
-        else if(*it == 'M')
-            result += 1000;
+        switch(*it)
+        {
+            case 'I':
+                result = (*(it+1) == 'X' || *(it+1) == 'V') ? result-1 : result+1;
+                break;
+            case 'V':
+                result += 5;
+                break;
+            case 'X':
+                result = (*(it+1) == 'L' || *(it+1) == 'C') ? result-10 : result+10;
+                break;
+            case 'L':
+                result += 50;
+                break;
+            case 'C':
+                result = (*(it+1) == 'D' || *(it+1) == 'M') ? result-100 : result+100;
+                break;
+            case 'D':
+                result += 500;
+                break;
+            case 'M':
+                result += 1000;
+                break;
+            default:
+                break;
+        }
     }
     return result;
 }
