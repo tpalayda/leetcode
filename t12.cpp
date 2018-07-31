@@ -1,58 +1,17 @@
 #include <iostream>
+#include <vector>
 
-const char RomanSymbol(const unsigned& num)
-{
-    switch(num)
-    {
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-            return 'I';
-            break;
-        case 5:
-            return 'V';
-            break;
-        case 10:
-            return 'X';
-            break;
-        case 50:
-            return 'L';
-            break;
-        case 100:
-            return 'C';
-            break;
-        case 500:
-            return 'D';
-            break;
-        case 1000:
-            return 'M';
-            break;
-        default:
-            break;
-    }
-}
+//input є [1,4000)
 std::string intToRoman(const unsigned& num)
 {
-    unsigned exp = 1;
-    std::string result;
-    while(exp*10 <= num)
-        exp *= 10;
-    unsigned numb = 0;
-    std::cout << "exp:" << exp << std::endl;
-    for(unsigned i = exp; i; i /= 10)
-    {
-        numb = (num/i%10)*i;
-        result += RomanSymbol(numb);
-    }
-    return result;
+    const std::vector<std::string> fourth_digit = {"","I","II","III","IV","V","VI","VII","VIII","IX"};
+    const std::vector<std::string> third_digit = {"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"};
+    const std::vector<std::string> second_digit = {"","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"};
+    const std::vector<std::string> first_digit = {"","M","MM","MMM"};
+    return first_digit[num/1000]+second_digit[num%1000/100]+third_digit[num%100/10]+fourth_digit[num%10];
 }
 
 int main()
 {
-    std::cout << intToRoman(231) << std::endl;
+    std::cout << intToRoman(3) << std::endl;
 }
