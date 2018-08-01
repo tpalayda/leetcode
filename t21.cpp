@@ -14,7 +14,37 @@ ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
         return l2;
     if(!l2)
         return l1;
-    ListNode* result;
+    ListNode* result, *current_node;
+    if(l1->val < l2->val)
+    {
+        result = current_node = l1;
+        l1 = l1->next;
+    }
+    else
+    {
+        result = current_node = l2;
+        l2 = l2->next;
+    }
+    
+    while(l1 && l2)
+    {
+        if(l1->val < l2->val)
+        {
+            current_node->next = l1; 
+            current_node = l1;
+            l1 = l1->next;
+        }
+        else
+        {
+            current_node->next = l2;
+            current_node = l2;
+            l2 = l2->next;
+        }
+    }
+    if(l1)
+        current_node->next = l1;
+    if(l2)
+        current_node->next = l2;
     return result;
 }
 void insert(ListNode*& root, const int& val)
