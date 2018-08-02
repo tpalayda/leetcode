@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 
-int singleNumber(const std::vector<int>& nums)
+//Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+inline int singleNumber(const std::vector<int>& nums)
 {
     int result = 0;
     for(const int& num : nums)
