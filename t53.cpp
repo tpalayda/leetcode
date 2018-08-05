@@ -11,7 +11,7 @@ int maxSubArray(const std::vector<int>& nums)
         temp_sum += nums[i]; 
         if(temp_sum > largest_sum)
             largest_sum = temp_sum;
-        else if(temp_sum < 0)
+        if(temp_sum < 0)
             temp_sum = 0;
     }
     return largest_sum;
@@ -19,6 +19,6 @@ int maxSubArray(const std::vector<int>& nums)
 
 int main()
 {
-    std::vector<int> nums = {-2,1,-3,4,-1,2,1,-5,4};
+    std::vector<int> nums = {-2,0,-3,-3};
     std::cout << maxSubArray(nums) << std::endl;
 }
