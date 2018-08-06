@@ -3,18 +3,15 @@
 size_t lengthOfLastWord(const std::string& s)
 {
     size_t length = 0;
-    for(unsigned i = 0; i < s.size(); ++i)
-    {
+    const size_t n = s.size();
+    for(int i = n-1; i >= 0; --i)
         if(s[i] != ' ')
             ++length;
-        else if(s[i] == ' ' && i == s.size()-1)
+        else if(s[i] == ' ' && length)
             return length;
-        else if(s[i] == ' ' && i+1 < s.size() && s[i+1] != ' ')
-            length = 0;
-    }
     return length;
 }
 int main()
 {
-    std::cout << lengthOfLastWord("") << std::endl;
+    std::cout << lengthOfLastWord("b aaaaaaaaaaaa ") << std::endl;
 }
