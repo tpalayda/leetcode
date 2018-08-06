@@ -25,16 +25,18 @@ void printListNode(const ListNode* root)
 }
 ListNode* reverseListNode(ListNode* root)
 {
-    std::vector<int> v;
-    while(root)
+    if(!root  || !root->next)
+        return root;
+    ListNode* temp = root->next;
+    root->next = nullptr;
+    while(temp)
     {
-        v.emplace_back(root->val);
-        root = root->next;
+        ListNode* node = temp->next;
+        temp->next = root;
+        root = temp;
+        temp = node;
     }
-    ListNode* head = nullptr;
-    for(const int& el : v)
-        insert(head,el);
-    return head;
+    return root;
 }
 void DestroyListNode(const ListNode* root)
 {
