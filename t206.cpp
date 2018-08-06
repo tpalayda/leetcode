@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <iterator>
 
 struct ListNode
 {
@@ -23,7 +25,16 @@ void printListNode(const ListNode* root)
 }
 ListNode* reverseListNode(ListNode* root)
 {
-    return nullptr;
+    std::vector<int> v;
+    while(root)
+    {
+        v.emplace_back(root->val);
+        root = root->next;
+    }
+    ListNode* head = nullptr;
+    for(const int& el : v)
+        insert(head,el);
+    return head;
 }
 void DestroyListNode(const ListNode* root)
 {
@@ -35,7 +46,7 @@ void DestroyListNode(const ListNode* root)
 int main()
 {
     ListNode* root = nullptr;
-    for(unsigned i = 5; i; --i)
+    for(unsigned i = 5; i > 0; --i)
         insert(root,i);
     printListNode(root);
     printListNode(reverseListNode(root));
