@@ -1,49 +1,22 @@
 #include <iostream>
 #include <string>
 
+//'1' = 49, '0' = 48
 std::string addBinary(const std::string& a, const std::string& b)
 {
-    const size_t n1 = a.size();
-    const size_t n2 = b.size();
     std::string result;
-    result.reserve(n1+n2);
-    auto it1 = a.rbegin();
-    auto it2 = b.rbegin();
-    char carry = '0';
-    while(it1 != a.rend() && it2 != b.rend())
+    int carry = 0;
+    for(int i = a.size()-1, j = b.size()-1; i >= 0 || j >= 0; --i,--j)
     {
-        if(*it1 == '1' && *it2 == '1')
-        {
-            result += "0";
-            carry = '1';
-        }
-        else if(*it1 == '0' && *it2 == '0')
-            result += '0';
-        else
-            if(carry == '1')
-            {
-                result += '0';
-                carry = '1';
-            }
-            else
-                result += '1';
-        ++it1,++it2;
+        int sum = carry;
+        if(i >= 0) sum += a[i] - 48;
+        if(j >= 0) sum += a[j] - 48;
+        result.push_back((sum % 2) + 48);
+        carry = sum / 2;
     }
-    if(carry == '1')
-        std::cout << "left to carry" << std::endl;
-    if(n1 > n2)
-    {
-        while(it1 != a.rend())
-            result += *it1++;
-        std::cout << "n1 is bigger than n2" << std::endl;
-    }
-    else if(n1 < n2)
-    {
-        while(it2 != a.rend())
-            result += *it2++;
-        std::cout << "n2 is bigger than n1" << std::endl;
-    }
-    return result;
+    if(carry)
+        result.push_back(carry + 48);
+    return {result.rbegin(),result.rend()};
 }
 
 int main()
