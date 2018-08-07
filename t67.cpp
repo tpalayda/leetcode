@@ -10,7 +10,7 @@ std::string addBinary(const std::string& a, const std::string& b)
     {
         int sum = carry;
         if(i >= 0) sum += a[i] - 48;
-        if(j >= 0) sum += a[j] - 48;
+        if(j >= 0) sum += b[j] - 48;
         result.push_back((sum % 2) + 48);
         carry = sum / 2;
     }
@@ -21,5 +21,6 @@ std::string addBinary(const std::string& a, const std::string& b)
 
 int main()
 {
-    std::cout << addBinary("11","1") << "\n";
+    std::cout << addBinary("1010","1011") << "\n";
+    //10101
 }
