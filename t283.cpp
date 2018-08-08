@@ -5,9 +5,12 @@
 void moveZeroes(std::vector<int>& nums)
 {
     const size_t n = nums.size();
-    for(unsigned i = 0, j = n-1; i < j; ++i)
-        if(!nums[i] && nums[j])
-            std::swap(nums[i],nums[j--]);
+    unsigned j = 0;
+    for(unsigned i = 0; i < n; ++i)
+        if(nums[i])
+            nums[j++] = nums[i];
+    while(j < n)
+        nums[j++] = 0;
 }
 int main()
 {
