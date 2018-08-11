@@ -2,12 +2,10 @@
 #include <string>
 #include <vector>
 
-char findTheDifference(const std::string&s, const std::string& t)
+char findTheDifference(const std::string& s, const std::string& t)
 {
     unsigned result = 0;
-    for(const char& ch : s)
-        result ^= ch;
-    for(const char& ch : t)
+    for(const char& ch : s+t)
         result ^= ch;
     return result;
 }
