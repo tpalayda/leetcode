@@ -8,16 +8,16 @@ bool isIsomorphic(const std::string& s, const std::string& t)
         return false;
     std::unordered_map<char,unsigned> occurrences_1;
     std::unordered_map<char,unsigned> occurrences_2;
-    for(const char& ch : s)
-        ++occurrences_1[ch];
-    for(const char& ch : t)
-        ++occurrences_2[ch]; 
-    for(auto it = occurrences_1.begin(), it2 = occurrences_2.begin(); it != occurrences_1.end(); ++it, ++it2)
-        if((*it2).second != (*it).second)
+    for(unsigned i = 0; i < s.size(); ++i)
+    {
+        if(occurrences_1[s[i]] != occurrences_2[t[i]])
             return false;
+        occurrences_1[s[i]] = i + 1;
+        occurrences_2[t[i]] = i + 1;
+    }
     return true;
 }
 int main()
 {
-    std::cout << isIsomorphic("abba","abab") << std::endl;
+    std::cout << isIsomorphic("ab","aa") << std::endl;
 }
