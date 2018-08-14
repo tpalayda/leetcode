@@ -41,23 +41,22 @@ ListNode* reverseListNode(ListNode* root)
 //remove elements which have value val
 ListNode* removeElements(ListNode* head, const int& val)
 {
-    if(!head)
-        return nullptr;
-    ListNode* root = head->next;
-    ListNode* prev = head;
-    if(prev->val == val)
-    {
-        delete prev;
-        head = head->next;
-    }
+    ListNode* root = head;
+    ListNode* prev = nullptr;
     while(root)
     {
-        if(root->val == val)
+        if(root->val == val && root == head)
         {
             ListNode* temp = root->next;
             delete root;
-            root = prev;
+            root = head = temp;
+        }
+        else if(root->val == val)
+        {
+            ListNode* temp = root->next;
+            delete root;
             prev->next = temp;
+            root = temp;
         }
         else
         {
@@ -78,11 +77,10 @@ int main()
 {
     ListNode* root = nullptr;
     for(unsigned i = 5; i > 0; --i)
-        insert(root,i);
+        insert(root,3);
     insert(root,3);
     insert(root,3);
     insert(root,3);
     printListNode(root);
     printListNode(removeElements(root,3));
-    DestroyListNode(root);
 }
