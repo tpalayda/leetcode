@@ -6,9 +6,7 @@ bool containsDuplicate(const std::vector<int>& nums)
 {
     std::unordered_map<int,int> occurrences;
     for(const int& num : nums)
-        ++occurrences[num];
-    for(const auto& it : occurrences)
-        if(it.second > 1)
+        if(++occurrences[num] > 1)
             return true;
     return false;
 }
