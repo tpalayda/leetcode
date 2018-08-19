@@ -1,40 +1,18 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <iterator>
-#include <unordered_map>
 
-std::vector<std::string> uncommonFromSentences(const std::string& A, const std::string& B)
+//Fair Candy Swap
+std::vector<int> fairCandySwap(const std::vector<int>& A, const std::vector<int>& B)
 {
-    std::unordered_map<std::string,unsigned> hashTable;
-    std::vector<std::string> v;
-    std::string temp;
-    for(const char& ch : A)
-        if(ch == ' ')
-        {
-            ++hashTable[temp];
-            temp = "";
-        }
-        else
-            temp += ch; 
-    ++hashTable[temp]; //last word
-    temp = "";
-    for(const char& ch : B)
-        if(ch == ' ')
-        {
-            ++hashTable[temp];
-            temp = "";
-        }
-        else
-            temp += ch;
-    ++hashTable[temp]; //last word
-    for(const auto& it : hashTable)
-        if(it.second == 1)
-            v.emplace_back(it.first);
-    return v;
+    return {1,2};
 }
+
 int main()
 {
-    std::vector<std::string> v = uncommonFromSentences("this apple is sweet", "this apple is sour");
-    std::copy(v.begin(),v.end(),std::ostream_iterator<std::string>(std::cout, " "));
+    std::vector<int> v1 = {1,1};
+    std::vector<int> v2 = {2,2};
+    for(const int& el : fairCandySwap(v1,v2))
+        std::cout << el << " ";
+    std::cout << std::endl;
 }
+
