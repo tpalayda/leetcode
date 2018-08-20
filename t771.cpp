@@ -1,13 +1,18 @@
 #include <iostream>
 #include <string>
-#include <vector> //unordered_map can be used as well
+#include <unordered_set>
 
 //Jewels and Stones
 unsigned numJewelsInStones(const std::string& J, const std::string& S)
 {
-    std::vector<unsigned> v('z'-'A',0);
-    std::cout << 'z'-'A' << std::endl;
-    return 0;
+    unsigned result = 0;
+    std::unordered_set<char> hashTable;
+    for(const char& jewel : J)
+        hashTable.emplace(jewel);
+    for(const char& stone : S)
+        if(hashTable.count(stone))
+            ++result;
+    return result;
 }
 int main()
 {
