@@ -4,10 +4,28 @@
 #include <vector>
 
 //Letter Case Permutation
+void backtracking(std::string s, const size_t& i, std::vector<std::string>& result)
+{
+    if(i == s.size())
+    {
+        result.emplace_back(s);
+        return;
+    }
+    backtracking(s, i + 1, result);
+    if(isalpha(s[i]))
+    {
+        s[i] ^= (1 << 5);
+        backtracking(s, i + 1, result);
+    }
+}
 
 std::vector<std::string> letterCasePermutation(const std::string& s)
 {
-    return {"","dsds","aaaa"}; 
+    std::vector<std::string> result;
+
+    backtracking(s, 0, result);
+
+    return result;
 }
 
 int main()
