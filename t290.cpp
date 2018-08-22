@@ -19,16 +19,22 @@ bool wordPattern(const std::string& pattern, const std::string& str)
             temp += ch;
     v.emplace_back(temp);
 
+    if(v.size() != pattern.size())
+        return false;
+
     std::unordered_map<char,std::string> hashTable;
     for(unsigned i = 0; i < pattern.size(); ++i)
         if(!hashTable.count(pattern[i]))
             hashTable[pattern[i]] = v[i];
-
+    for(unsigned i = 0; i < pattern.size(); ++i)
+        if(hashTable[pattern[i]] != v[i])
+            return false;
+    
     std::copy(v.begin(), v.end(), std::ostream_iterator<std::string>(std::cout, " "));
-    return 0;
+    return true;
 }
 
 int main()
 {
-    std::cout << wordPattern("abba","dog cat cat dog") << std::endl;
+    std::cout << wordPattern("abba","dog dog dog dog") << std::endl;
 }
