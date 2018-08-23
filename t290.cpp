@@ -26,6 +26,9 @@ bool wordPattern(const std::string& pattern, const std::string& str)
     for(unsigned i = 0; i < pattern.size(); ++i)
         if(!hashTable.count(pattern[i]))
             hashTable[pattern[i]] = v[i];
+    for(auto it = hashTable.begin(), it2 = ++hashTable.begin(); it2 != hashTable.end(); ++it, ++it2)
+        if(hashTable[it->first] == hashTable[it2->first])
+            return false;   
     for(unsigned i = 0; i < pattern.size(); ++i)
         if(hashTable[pattern[i]] != v[i])
             return false;
@@ -36,5 +39,8 @@ bool wordPattern(const std::string& pattern, const std::string& str)
 
 int main()
 {
+    std::cout << wordPattern("abba","dog cat cat dog") << std::endl;
+    std::cout << wordPattern("abba","dog cat cat fish") << std::endl;
+    std::cout << wordPattern("aaaa","dog cat cat dog") << std::endl;
     std::cout << wordPattern("abba","dog dog dog dog") << std::endl;
 }
