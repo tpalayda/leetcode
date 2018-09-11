@@ -3,16 +3,16 @@
 
 bool isMonotonic(const std::vector<int>& A)
 {
-    auto it = A.begin();
-    while(*it == *(it+1)) ++it;
+    auto it = A.begin()+1;
+    while(*it == *(it-1) && it != A.end()) ++it;
     if(it == A.end())
         return true;
 
-    if(*it >= *(it+1))
-        while(*it >= *(it+1) && it+1 != A.end()) ++it;
-    else
-        while(*(it+1) >= *it) ++it;
-    return *it == *(A.end()-1);
+    if(*it >= *(it-1)) //increasing
+        while(*it >= *(it-1) && it != A.end()) ++it;
+    else //decreasing
+        while(*it <= *(it-1) && it != A.end()) ++it;
+    return it == A.end();
 }
 
 int main()
