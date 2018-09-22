@@ -4,11 +4,10 @@
 //Valid Palindrome II
 // Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
 
-bool isPalindromeInRange(const std::string& s, const int& i, const int& j)
+bool isPalindromeInRange(const std::string& s, int i, int j)
 {
-    int m = (i + j)/2;
-    for(int k = i; k <= m; ++k)
-        if(s[k] != s[j - k + i])
+    while(i < j)
+        if(s[i++] != s[j--])
             return false;
     return true;
 }
@@ -27,4 +26,5 @@ int main()
     std::cout << validPalindrome("aba") << std::endl; //1
     std::cout << validPalindrome("aaaa") << std::endl; //1
     std::cout << validPalindrome("abca") << std::endl; //1
+    std::cout << validPalindrome("aaaab") << std::endl; //1
 }
