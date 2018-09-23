@@ -8,32 +8,24 @@ std::string licenseKeyFormatting(const std::string& S, const int& K)
     std::string str;
     std::string result;
     for(char ch : S)
-        if(ch != '-') 
-        {
-            if(ch > 96) //lowercase
+    {
+        if(ch != '-' && ch > 96) 
                 ch -= 32; //make uppercase
             str += ch;
-        }
-    unsigned counter = 0;
-    unsigned numberToPutInFirst = str.size() - K;
-    unsigned i = 0;
-    numberToPutInFirst %= K;
-
-    while(i < numberToPutInFirst)
-        result += str[i++];
-    if(numberToPutInFirst < str.size() && !result.empty())
-        result += '-';
-    while(i < str.size())
-    {
-        result += str[i];
-        if(++counter == K && i != str.size()-1)
-        {
-            result += '-';
-            counter = 0;
-        }
-        ++i;
     }
-    return result;
+    unsigned counter = 0;
+    for(int i = str.size() - 1; i >= 0; --i)
+        if(str[i] != '-')
+        {
+            if(counter == K)
+            {
+                result += '-';
+                counter = 0;
+            }
+            result += str[i];
+            ++counter;
+        }
+    return std::string(result.rbegin(), result.rend());
 }
 
 int main()
