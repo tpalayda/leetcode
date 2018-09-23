@@ -27,19 +27,16 @@ std::vector<std::string> findWords(const std::vector<std::string>& words)
         {
             if(inRow1 && !row1.count(ch))
             {
-                inRow1 = false;
                 wasBreak = true;
                 break;
             }
             else if(inRow2 && !row2.count(ch))
             {
-                inRow2 = false;
                 wasBreak = true;
                 break;
             }
             else if(inRow3 && !row3.count(ch))
             {
-                inRow3 = false;
                 wasBreak = true;
                 break; 
             }
