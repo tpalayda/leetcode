@@ -1,14 +1,21 @@
 #include <iostream>
 #include <vector>
 
-inline bool canPlaceFlowers(const std::vector<int>& flowerbed, const int& n)
+inline bool canPlaceFlowers(std::vector<int> flowerbed, const int& n)
 {
     unsigned howManyCanPlace = 0;
     unsigned i = 0;
     for(unsigned i = 0; i < flowerbed.size(); ++i)
-        if(!flowerbed[i] && (i == 0 || flowerbed[i-1] == 0) && (i == flowerbed.size() - 1 || flowerbed[i + 1] == 0))
+    {
+        if(flowerbed[i] == 0 && (i == 0 || flowerbed[i-1] == 0) && (i == flowerbed.size() - 1 || flowerbed[i + 1] == 0))
+        {
+            flowerbed[i] = 1;
             ++howManyCanPlace;
-    return howManyCanPlace >= n;
+        }
+        if(howManyCanPlace >= n)
+            return true;
+    }
+    return false;
 }
 
 int main()
