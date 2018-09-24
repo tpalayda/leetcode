@@ -13,7 +13,11 @@ bool containsCharacter(const std::string& s)
 void reverseWords(std::string& s)
 {
     if(!containsCharacter)
+    {
+        s = "";
         return;
+    }
+
     std::istringstream iss(s);
     std::vector<std::string> words;
     std::string word;
