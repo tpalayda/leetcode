@@ -5,20 +5,25 @@
 
 constexpr bool isHappy(int n) //stack will overflow
 {
-    if(n == 1)
-        return true;
-    int digit = n % 10;
-    int sumOfDigits = 0;
-    while(n)
+    while(n > 6)
     {
-        sumOfDigits += digit*digit;
-        n /= 10;
-        digit = n % 10;
+        int digit = n % 10;
+        int sumOfDigits = 0;
+        while(n)
+        {
+            sumOfDigits += digit*digit;
+            n /= 10;
+            digit = n % 10;
+        }
+        if(sumOfDigits == 1)
+            return true;
+        n = sumOfDigits;
     }
-    return isHappy(sumOfDigits);
+    return n == 1;
 }
 
 int main()
 {
-    std::cout << isHappy(2) << std::endl;
+    std::cout << isHappy(19) << std::endl;
+    std::cout << isHappy(9) << std::endl;
 }
