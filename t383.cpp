@@ -5,15 +5,11 @@
 bool canConstruct(const std::string& ransomNote, const std::string& magazine) 
 {
     std::unordered_map<char, int> occurrences;
-    std::unordered_set<char> string(ransomNote.begin(), ransomNote.end());    
 
-    for(const char& ch : ransomNote)
-        ++occurrences[ch];
     for(const char& ch : magazine)
-        if(string.count(ch))
-            --occurrences[ch];
-    for(const auto& it : occurrences)
-        if(it.second > 0)
+        ++occurrences[ch];
+    for(const char& ch : ransomNote)
+        if(--occurrences[ch] < 0)
             return false;
     return true;
 }
