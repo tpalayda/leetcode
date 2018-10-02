@@ -1,18 +1,20 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
 #include <unordered_map>
 
 bool hasGroupsSizeX(const std::vector<int>& deck) 
 {
     std::unordered_map<int, unsigned> occurrences;
-    const size_t deckSize = deck.size();
-    if(deckSize & 1)
-        return false;
     for(const int& num : deck)
         ++occurrences[num];
+    unsigned temp = 0;
     for(const auto& it : occurrences)
-        if(it.second & 1)
+    {
+        temp = std::__gcd(it.second, temp);
+        if(temp < 2)
             return false;
+    }
     return true;
 }
 
