@@ -6,7 +6,21 @@
 
 int findMin(const std::vector<int>& nums)
 {
-    return *std::min_element(nums.begin(), nums.end());
+    unsigned l = 0;
+    unsigned r = nums.size() - 1;
+    while(l < r)
+    {
+        if(nums[l] < nums[r])
+            return nums[l];
+
+        unsigned m = (l + r) / 2;
+
+        if(nums[m] >= nums[l]) // [2,1]
+            l = m + 1;
+        else
+            r = m;
+    }
+    return nums[l];
 }
 
 int main()
