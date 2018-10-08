@@ -9,17 +9,20 @@ Given an array with n integers, your task is to check if it could become non-dec
 We define an array is non-decreasing if array[i] <= array[i + 1] holds for every i (1 <= i < n).
 */
 
-bool checkPossibility(const std::vector<int>& nums)
+int checkPossibility(const std::vector<int>& nums)
 {
-    size_t counter = 0;
-    for(auto it = nums.begin() + 1; it != nums.end(); ++it)
-        if(*it >= *(it-1))
-            ++counter;
-    return counter == 1;
+    int numOfSorted = nums[1] > nums[0];
+    for(unsigned i = 2; i < nums.size(); ++i)
+        if(nums[i] >= nums[i-1] && i+1 < nums.size() && nums[i+1] >= nums[i]) 
+            ++numOfSorted;
+    numOfSorted += nums[nums.size()-1] > nums[nums.size()-2];
+    return numOfSorted;
 }
 
 int main()
 {
     std::cout << checkPossibility({4, 2, 3}) << std::endl; //1
     std::cout << checkPossibility({4, 2, 1}) << std::endl; //0
+    std::cout << checkPossibility({-1, 4, 2, 3}) << std::endl; //1
+    std::cout << checkPossibility({3, 4, 2, 3}) << std::endl; //0
 }
