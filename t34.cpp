@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
+#include <algorithm>
 
 /*
 Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
@@ -12,27 +13,9 @@ If the target is not found in the array, return [-1, -1].
 34. Find First and Last Position of Element in Sorted Array */
 std::vector<int> searchRange(const std::vector<int>& nums, const int& target)
 {
-    const size_t N = nums.size();
-    int l = 0;
-    int r = N - 1;
-    while(l <= r)
-    {
-        int m = (l + r) / 2;
-        if(nums[m] == target)
-        {
-            int i = m, j = m;
-            while(j - 1 >= 0 && nums[j-1] == target)
-                --j;
-            while(i + 1 < N && nums[i+1] == target) 
-                ++i;
-            return {j, i};
-        }
-        else if(nums[m] > target)
-            r = m - 1;
-        else
-            l = m + 1;
-    }
-    return {-1, -1};
+    int i = std::lower_bound(nums.begin(), nums.end(), target) - nums.begin();
+    int j = std::upper_bound(nums.begin(), nums.end(), target) - nums.begin();
+    return i == j ? std::vector<int>{-1, -1} : std::vector<int>{i, j - 1};
 }
 
 int main()
