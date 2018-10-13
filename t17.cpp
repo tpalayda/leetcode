@@ -8,25 +8,18 @@ std::vector<std::string> letterCombinations(const std::string& digits)
         return {};
     const std::vector<std::string> v = {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
     std::vector<std::string> result;
-    if(digits.size() == 1)
+    result.emplace_back("");
+    
+    for(const char& digit : digits)
     {
-        for(const char& ch : v[digits[0]-50])
-        {
-            std::string temp;
-            temp += ch;
-            result.emplace_back(temp);
-        }
+        const std::string& string = v[digit - 50];
+        std::vector<std::string> temp;
+        for(unsigned i = 0; i < string.size(); ++i)
+            for(unsigned j = 0; j < result.size(); ++j)
+                temp.emplace_back(result[j] + string[i]);
+        if(!temp.empty())
+            result.swap(temp);
     }
-    for(auto i = digits.begin(); i != digits.end(); ++i)
-        for(auto j = i+1; j != digits.end(); ++j)
-            for(const char& ch : v[*i-50])
-                for(const char& ch2 : v[*j-50])
-                {
-                    std::string temp; 
-                    temp += ch;
-                    temp += ch2;
-                    result.emplace_back(temp); 
-                }
     return result;
 }
 int main()
