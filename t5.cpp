@@ -10,22 +10,23 @@ bool isPalindrome(const std::string& s)
 }
 std::string longestPalindrome(const std::string& s)
 {
-    std::string result;
-
-    for(unsigned i = 0; i < s.size(); ++i)
+    unsigned min_l = 0;
+    unsigned max_r = 1;
+    for(unsigned i = 0; i < s.size();)
     {
-        std::string temp;
-        temp += s[i];
-        for(unsigned j = i + 1; j < s.size(); ++j)
-        {
-            if(isPalindrome(temp) && temp.size() > result.size())
-                result = temp;
-            temp += s[j];
-        }
-        if(isPalindrome(temp) && temp.size() > result.size())
-            result = temp;
+        if(s.size() - i <= max_r / 2)
+            break;
+        unsigned j = i, k = i;
+        while(k < s.size() - 1 && s[k+1] == s[k]) //skipping duplicates
+            ++k;
+        i = k + 1;
+        while(k < s.size() - 1 && j && s[k+1] == s[j-1]) //expanding
+            ++k, --j;
+        unsigned length = k - j + 1;
+        if(length > max_r)
+            min_l = j, max_r = length;
     }
-    return result;
+    return s.substr(min_l, max_r);
 }
 
 int main()
