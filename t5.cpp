@@ -10,32 +10,33 @@ bool isPalindrome(const std::string& s)
 }
 std::string longestPalindrome(const std::string& s)
 {
-    const size_t n = s.size();
-    if(isPalindrome(s) || n < 2)
-        return s;
-    std::vector<std::string> v;
     std::string result;
-    v.reserve(n-1);
-    for(unsigned i = 0; i < n; ++i)
+    std::vector<std::string> palindromes;
+
+    for(unsigned i = 0; i < s.size(); ++i)
     {
-        result += s[i];
-        if(isPalindrome(result))
-            v.emplace_back(result);
-        else
+        std::string temp;
+        temp += s[i];
+        for(unsigned j = i + 1; j < s.size(); ++j)
         {
-            result.clear();
-            result = s[i];
+            if(isPalindrome(temp))
+                palindromes.emplace_back(temp);
+            temp += s[j];
         }
+        if(isPalindrome(temp))
+            palindromes.emplace_back(temp);
     }
-    result.clear();
-    for(const auto& str : v)
-        if(str.size() > result.size())
-            result = std::move(str); 
+        
+    for(const std::string& palindrome : palindromes)
+        if(result.size() < palindrome.size())
+            result = palindrome;
     return result;
 }
 
 int main()
 {
-    std::cout << longestPalindrome("babad") << std::endl;
-    //std::cout << isPalindrome("aaaaa") << std::endl;
+    std::cout << longestPalindrome("cbbd") << std::endl; // bb
+    std::cout << longestPalindrome("babad") << std::endl; // bab | aba
+    std::cout << longestPalindrome("a") << std::endl; // a
+    std::cout << longestPalindrome("ac") << std::endl; // a | c
 }
