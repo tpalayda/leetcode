@@ -11,7 +11,6 @@ bool isPalindrome(const std::string& s)
 std::string longestPalindrome(const std::string& s)
 {
     std::string result;
-    std::vector<std::string> palindromes;
 
     for(unsigned i = 0; i < s.size(); ++i)
     {
@@ -19,17 +18,13 @@ std::string longestPalindrome(const std::string& s)
         temp += s[i];
         for(unsigned j = i + 1; j < s.size(); ++j)
         {
-            if(isPalindrome(temp))
-                palindromes.emplace_back(temp);
+            if(isPalindrome(temp) && temp.size() > result.size())
+                result = temp;
             temp += s[j];
         }
-        if(isPalindrome(temp))
-            palindromes.emplace_back(temp);
+        if(isPalindrome(temp) && temp.size() > result.size())
+            result = temp;
     }
-        
-    for(const std::string& palindrome : palindromes)
-        if(result.size() < palindrome.size())
-            result = palindrome;
     return result;
 }
 
