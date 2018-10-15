@@ -16,22 +16,22 @@ constexpr bool isOdd(const T& val)
 
 std::vector<int> sortArrayByParityII(const std::vector<int>& A)
 {
-    std::vector<int> result = A;
-    std::sort(result.begin(), result.end()); // O(nlogn)
-
-    for(unsigned i = 0, j = i + 1; i < A.size() - 1;)
-    {
-        if(isOdd(i) && !isOdd(result[i]))
+    std::vector<int> result(A.size(), 0);
+    
+    int l = 0;
+    int r = 1;
+    
+    for(const int& num : A)
+        if(isOdd(num))
         {
-            while(!isOdd(A[j])) 
-                ++j;
-            std::swap(result[i], result[j]);
+            result[r] = num;
+            r += 2;
         }
         else
-            ++i;
-        
-    }
-
+        {
+            result[l] = num;
+            l += 2;
+        }
     return result;
 }
 
