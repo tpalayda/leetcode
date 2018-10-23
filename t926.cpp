@@ -11,7 +11,14 @@ Return the minimum number of flips to make S monotone increasing.
 */
 int minFlipsMonoIncr(const std::string& S)
 {
-    return 0;
+    int f0 = 0;
+    int f1 = 0;
+    for(const char& ch : S)
+    {
+        f0 += ch - 48;
+        f1 = std::min(f0, f1 + 1 - (ch - 48));
+    }
+    return f1;
 }
 
 int main()
