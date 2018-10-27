@@ -38,33 +38,19 @@ ListNode* reverseListNode(ListNode* root)
     }
     return root;
 }
-/*ListNode* removeNthFromEnd(ListNode* head, const int& n)
+ListNode* removeNthFromEnd(ListNode* head, const int& n)
 {
     ListNode* root = head;
     int size = 0;
     while(root && ++size)
         root = root->next;
+    if(size == n)
+        return head->next;
     root = head;
-    size -= n;
-    while(size > 0 && --size)
+    int el = size - n;
+    while(root && --el)
         root = root->next;
     root->next = root->next->next;
-    return head;
-}*/
-ListNode* removeNthFromEnd(ListNode* head, const int& n)
-{
-    if(n == 1 && head && !head->next)
-        return nullptr;
-    ListNode* root = head;
-    int index = 0;
-    while(root && ++index)
-        root = root->next;
-    root = head;
-    int NumberOfElement = index - n;
-    index = 1;
-    ListNode* next = nullptr;
-    while(root && index++ != NumberOfElement)
-        root = root->next;
     return head;
 }
 void DestroyListNode(const ListNode* root)
@@ -77,9 +63,9 @@ void DestroyListNode(const ListNode* root)
 int main()
 {
     ListNode* root = nullptr;
-    for(int i = 2; i > 0; --i)
+    for(int i = 5; i > 0; --i)
         insert(root,i);
     printListNode(root);
-    printListNode(removeNthFromEnd(root,2));
+    printListNode(removeNthFromEnd(root,4));
     //DestroyListNode(root);
 }
